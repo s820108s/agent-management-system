@@ -10,9 +10,8 @@
 ## Setup
 
 ```bash
-# 1. Scaffold with vue-element-plus-admin template
-npx degit kailong321200875/vue-element-plus-admin agent-admin-portal
-cd agent-admin-portal
+# 1. Install dependencies (scaffold already applied)
+cd agent-management-system
 
 # 2. Install dependencies
 pnpm install
@@ -45,20 +44,20 @@ pnpm build
 
 ## Key Entry Points
 
-| Path | Purpose |
-|------|---------|
-| `src/main.ts` | App bootstrap (Vue + Pinia + Router) |
-| `src/router/index.ts` | Route definitions + navigation guard |
-| `src/utils/request.ts` | Axios instance + 401 interceptor |
-| `src/stores/auth.ts` | Auth state: login / logout / 401 handler |
-| `src/stores/agents.ts` | Agent list state: fetch / filter / sort / toggle |
-| `src/pages/login/index.vue` | Login page |
-| `src/pages/agents/index.vue` | Agent list page |
+| Path                         | Purpose                                          |
+| ---------------------------- | ------------------------------------------------ |
+| `src/main.ts`                | App bootstrap (Vue + Pinia + Router)             |
+| `src/router/index.ts`        | Route definitions + navigation guard             |
+| `src/utils/request.ts`       | Axios instance + 401 interceptor                 |
+| `src/stores/auth.ts`         | Auth state: login / logout / 401 handler         |
+| `src/stores/agents.ts`       | Agent list state: fetch / filter / sort / toggle |
+| `src/pages/login/index.vue`  | Login page                                       |
+| `src/pages/agents/index.vue` | Agent list page                                  |
 
 ## Environment Variables
 
-| Variable | Description | Example |
-|----------|-------------|---------|
+| Variable            | Description          | Example                 |
+| ------------------- | -------------------- | ----------------------- |
 | `VITE_API_BASE_URL` | Backend API base URL | `http://localhost:3000` |
 
 ## Test Accounts (Development)

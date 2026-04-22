@@ -7,12 +7,15 @@ import {
   ElInput,
   ElSelect,
   ElOption,
-  ElButton
+  ElButton,
+  ElTag
 } from 'element-plus'
 import { useAgentStore } from '@/store/modules/agents'
 import type { Agent } from '@/types'
+import AddAgentDialog from './components/AddAgentDialog.vue'
 
 const agentStore = useAgentStore()
+const dialogVisible = ref(false)
 
 const searchName = ref('')
 const searchStatus = ref<'active' | 'inactive' | ''>('')
@@ -67,22 +70,27 @@ const formatDate = (iso: string) => {
 
 <template>
   <div class="p-20px">
-    <div class="flex items-center gap-10px mb-16px">
-      <ElInput
-        v-model="searchName"
-        placeholder="代理商名稱"
-        clearable
-        style="width: 200px"
-        @keyup.enter="handleSearch"
-      />
-      <ElSelect v-model="searchStatus" placeholder="全部狀態" clearable style="width: 140px">
-        <ElOption label="全部" value="" />
-        <ElOption label="啟用" value="active" />
-        <ElOption label="停用" value="inactive" />
-      </ElSelect>
-      <ElButton type="primary" @click="handleSearch">搜尋</ElButton>
-      <ElButton @click="handleReset">重置</ElButton>
+    <div class="flex items-center justify-between mb-16px">
+      <div class="flex items-center gap-10px">
+        <ElInput
+          v-model="searchName"
+          placeholder="代理商名稱"
+          clearable
+          style="width: 200px"
+          @keyup.enter="handleSearch"
+        />
+        <ElSelect v-model="searchStatus" placeholder="全部狀態" clearable style="width: 140px">
+          <ElOption label="全部" value="" />
+          <ElOption label="啟用" value="active" />
+          <ElOption label="停用" value="inactive" />
+        </ElSelect>
+        <ElButton type="primary" @click="handleSearch">搜尋</ElButton>
+        <ElButton @click="handleReset">重置</ElButton>
+      </div>
+      <ElButton type="primary" @click="dialogVisible = true">新增代理商</ElButton>
     </div>
+
+    <AddAgentDialog v-model:visible="dialogVisible" />
 
     <ElTable
       :data="agentStore.list"
@@ -102,9 +110,9 @@ const formatDate = (iso: string) => {
       <ElTableColumn prop="contactPhone" label="聯絡電話" width="150" sortable="custom" />
       <ElTableColumn prop="status" label="狀態" width="100" sortable="custom">
         <template #default="{ row }">
-          <el-tag :type="row.status === 'active' ? 'success' : 'danger'">
+          <ElTag :type="row.status === 'active' ? 'success' : 'danger'">
             {{ row.status === 'active' ? '啟用' : '停用' }}
-          </el-tag>
+          </ElTag>
         </template>
       </ElTableColumn>
       <ElTableColumn prop="createdAt" label="建立時間" width="180" sortable="custom">

@@ -18,7 +18,7 @@
 
 **Purpose**: 在既有型別定義中新增 CreateAgentRequest 介面。
 
-- [ ] T001 在 `src/types/index.ts` 新增 `CreateAgentRequest` interface：`{ name: string; contactPerson: string; contactPhone: string }`
+- [x] T001 在 `src/types/index.ts` 新增 `CreateAgentRequest` interface：`{ name: string; contactPerson: string; contactPhone: string }`
 
 **Checkpoint**: `pnpm ts:check` 無型別錯誤。
 
@@ -30,9 +30,9 @@
 
 ⚠️ **CRITICAL**: T002 與 T003 可並行；T003 需在 T004 之前完成。
 
-- [ ] T002 [P] 在 `src/api/agents/index.ts` 新增 `createAgent(data: CreateAgentRequest): Promise<Agent>` — 呼叫 `POST /api/agents`，使用 shared Axios instance
-- [ ] T003 [P] 在 `mock/agents/index.mock.ts` 新增 `POST /api/agents` rawResponse handler：讀取 body，產生新代理商（自動遞增 id、status: 'active'、createdAt 為當前時間），回傳 201
-- [ ] T004 在 `src/store/modules/agents.ts` 新增 `createAgent(data: CreateAgentRequest)` action：呼叫 `createAgent` API；成功後呼叫 `updateParams({ page: 1 })` + `fetchAgents()`；失敗顯示 `el-message` 錯誤訊息
+- [x] T002 [P] 在 `src/api/agents/index.ts` 新增 `createAgent(data: CreateAgentRequest): Promise<Agent>` — 呼叫 `POST /api/agents`，使用 shared Axios instance
+- [x] T003 [P] 在 `mock/agents/index.mock.ts` 新增 `POST /api/agents` rawResponse handler：讀取 body，產生新代理商（自動遞增 id、status: 'active'、createdAt 為當前時間），回傳 201
+- [x] T004 在 `src/store/modules/agents.ts` 新增 `createAgent(data: CreateAgentRequest)` action：呼叫 `createAgent` API；成功後呼叫 `updateParams({ page: 1 })` + `fetchAgents()`；失敗顯示 `el-message` 錯誤訊息
 
 **Checkpoint**: API 函式、mock handler、store action 均就緒，`pnpm ts:check` 無錯誤。
 
@@ -44,11 +44,11 @@
 
 **Independent Test**: 啟動 `pnpm dev`，登入後至 `/agents/list`，點擊「新增代理商」→ Dialog 出現；填寫有效資料送出 → Dialog 關閉，列表顯示新資料；空白欄位送出 → 顯示驗證錯誤；取消 → Dialog 關閉且資料不保留。
 
-- [ ] T005 [US1] 建立 `src/views/Agents/components/AddAgentDialog.vue`：`el-dialog` 包含 `el-form`（ref="formRef"），三個 `el-form-item`（name、contactPerson、contactPhone），底部「取消」與「確認」按鈕；透過 `defineProps<{ visible: boolean }>()` + `defineEmits(['update:visible', 'success'])` 控制開關
-- [ ] T006 [US1] 在 `AddAgentDialog.vue` 實作表單驗證規則：name required「請輸入代理商名稱」；contactPerson required「請輸入聯絡人」；contactPhone required + regex `/^[0-9+\-\s()]{7,20}$/`「請輸入有效的聯絡電話」
-- [ ] T007 [US1] 在 `AddAgentDialog.vue` 實作送出邏輯：呼叫 `formRef.validate()`；驗證通過後呼叫 `agentStore.createAgent(form)`；`submitting` ref 控制確認按鈕 `:loading`；成功後 emit `update:visible(false)` + emit `success`；失敗保持 Dialog 開啟（錯誤由 store 顯示）
-- [ ] T008 [US1] 在 `AddAgentDialog.vue` 實作關閉重置：監聽 `el-dialog` 的 `@closed` 事件，呼叫 `formRef.resetFields()` 清空所有欄位
-- [ ] T009 [US1] 在 `src/views/Agents/AgentList.vue` 整合 Dialog：import `AddAgentDialog`；新增 `dialogVisible` ref（初始 false）；在搜尋列右側新增「新增代理商」`el-button`（type="primary"）；`v-model:visible="dialogVisible"` + `@success="handleCreateSuccess"`；`handleCreateSuccess` 觸發列表刷新（agentStore 的 createAgent action 已在 store 層處理刷新，此處僅需確保 Dialog 關閉）
+- [x] T005 [US1] 建立 `src/views/Agents/components/AddAgentDialog.vue`：`el-dialog` 包含 `el-form`（ref="formRef"），三個 `el-form-item`（name、contactPerson、contactPhone），底部「取消」與「確認」按鈕；透過 `defineProps<{ visible: boolean }>()` + `defineEmits(['update:visible', 'success'])` 控制開關
+- [x] T006 [US1] 在 `AddAgentDialog.vue` 實作表單驗證規則：name required「請輸入代理商名稱」；contactPerson required「請輸入聯絡人」；contactPhone required + regex `/^[0-9+\-\s()]{7,20}$/`「請輸入有效的聯絡電話」
+- [x] T007 [US1] 在 `AddAgentDialog.vue` 實作送出邏輯：呼叫 `formRef.validate()`；驗證通過後呼叫 `agentStore.createAgent(form)`；`submitting` ref 控制確認按鈕 `:loading`；成功後 emit `update:visible(false)` + emit `success`；失敗保持 Dialog 開啟（錯誤由 store 顯示）
+- [x] T008 [US1] 在 `AddAgentDialog.vue` 實作關閉重置：監聽 `el-dialog` 的 `@closed` 事件，呼叫 `formRef.resetFields()` 清空所有欄位
+- [x] T009 [US1] 在 `src/views/Agents/AgentList.vue` 整合 Dialog：import `AddAgentDialog`；新增 `dialogVisible` ref（初始 false）；在搜尋列右側新增「新增代理商」`el-button`（type="primary"）；`v-model:visible="dialogVisible"` + `@success="handleCreateSuccess"`；`handleCreateSuccess` 觸發列表刷新（agentStore 的 createAgent action 已在 store 層處理刷新，此處僅需確保 Dialog 關閉）
 
 **Checkpoint**: User Story 1 完整可用 — Dialog 開關、表單驗證、送出、錯誤處理、列表刷新均正常。
 

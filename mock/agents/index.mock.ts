@@ -61,6 +61,35 @@ export default [
     }
   },
   {
+    url: '/api/agents',
+    method: 'post',
+    rawResponse: async (req: IncomingMessage, res: ServerResponse) => {
+      const raw = await readBody(req)
+      const { name, contactPerson, contactPhone } = JSON.parse(raw || '{}')
+
+      res.setHeader('Content-Type', 'application/json')
+
+      if (!name || !contactPerson || !contactPhone) {
+        res.statusCode = 422
+        res.end(JSON.stringify({ message: '所有欄位為必填' }))
+        return
+      }
+
+      const newAgent = {
+        id: allAgents.length + 1,
+        name,
+        contactPerson,
+        contactPhone,
+        status: 'active' as const,
+        createdAt: new Date().toISOString().replace('T', ' ').substring(0, 19)
+      }
+      allAgents.unshift(newAgent)
+
+      res.statusCode = 201
+      res.end(JSON.stringify(newAgent))
+    }
+  },
+  {
     url: '/api/agents/:id/status',
     method: 'patch',
     rawResponse: async (req: IncomingMessage, res: ServerResponse) => {

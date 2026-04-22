@@ -106,7 +106,7 @@ export const asyncRouterMap: AppRouteRecordRaw[] = [
 const router = createRouter({
   history: createWebHashHistory(),
   strict: true,
-  routes: constantRouterMap as RouteRecordRaw[],
+  routes: [...constantRouterMap, ...asyncRouterMap] as RouteRecordRaw[],
   scrollBehavior: () => ({ left: 0, top: 0 })
 })
 

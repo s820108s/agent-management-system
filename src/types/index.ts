@@ -42,3 +42,9 @@ export interface AgentListParams {
 export interface UpdateAgentStatusRequest {
   status: 'active' | 'inactive'
 }
+
+export interface CreateAgentRequest {
+  name: string
+  contactPerson: string
+  contactPhone: string
+}

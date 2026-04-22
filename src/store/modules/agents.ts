@@ -1,8 +1,8 @@
 import { defineStore } from 'pinia'
 import { store } from '../index'
 import { ElMessage } from 'element-plus'
-import { getAgents, updateAgentStatus } from '@/api/agents'
-import type { Agent, AgentListParams } from '@/types'
+import { createAgent as createAgentApi, getAgents, updateAgentStatus } from '@/api/agents'
+import type { Agent, AgentListParams, CreateAgentRequest } from '@/types'
 
 interface AgentQueryParams extends AgentListParams {
   page: number
@@ -59,6 +59,11 @@ export const useAgentStore = defineStore('agents', {
       if (resetsPage) {
         this.params.page = 1
       }
+    },
+    async createAgent(data: CreateAgentRequest) {
+      await createAgentApi(data)
+      this.updateParams({ page: 1 })
+      await this.fetchAgents()
     },
     async toggleStatus(id: string | number, currentStatus: 'active' | 'inactive') {
       const newStatus = currentStatus === 'active' ? 'inactive' : 'active'

@@ -48,3 +48,32 @@ export interface CreateAgentRequest {
   contactPerson: string
   contactPhone: string
 }
+
+export interface Member {
+  id: string | number
+  username: string
+  email: string
+  agentId: string | number
+  agentName: string
+  status: 'active' | 'inactive'
+  createdAt: string
+}
+
+export interface CreateMemberRequest {
+  username: string
+  email: string
+  password: string
+  agentId: string | number
+}
+
+export interface MemberListParams {
+  page: number
+  pageSize: number
+  keyword?: string
+  agentId?: string | number | ''
+}
+
+export interface AgentOption {
+  id: string | number
+  name: string
+}

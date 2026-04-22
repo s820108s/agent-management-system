@@ -100,6 +100,27 @@ export const asyncRouterMap: AppRouteRecordRaw[] = [
         }
       }
     ]
+  },
+  {
+    path: '/members',
+    component: Layout,
+    redirect: '/members/list',
+    name: 'MemberManagement',
+    meta: {
+      title: '會員管理',
+      icon: 'vi-ep:user-filled',
+      alwaysShow: true
+    },
+    children: [
+      {
+        path: 'list',
+        component: () => import('@/views/Members/MemberList.vue'),
+        name: 'MemberList',
+        meta: {
+          title: '會員列表'
+        }
+      }
+    ]
   }
 ]
 

@@ -23,8 +23,8 @@
 
 **⚠️ CRITICAL**: US1 and US2 cannot be started until this phase is complete.
 
-- [ ] T001 Add `Member`, `CreateMemberRequest`, `MemberListParams`, `AgentOption` interfaces to `src/types/index.ts`
-- [ ] T002 [P] Create `mock/members/index.mock.ts` with handlers for `GET /api/members` (80 mock members with agentId 1–50, keyword + agentId filter), `POST /api/members` (validates required fields, returns 409 if email duplicate), and `GET /api/agents/all` (returns active agents as `{ id, name }[]`)
+- [x] T001 Add `Member`, `CreateMemberRequest`, `MemberListParams`, `AgentOption` interfaces to `src/types/index.ts`
+- [x] T002 [P] Create `mock/members/index.mock.ts` with handlers for `GET /api/members` (80 mock members with agentId 1–50, keyword + agentId filter), `POST /api/members` (validates required fields, returns 409 if email duplicate), and `GET /api/agents/all` (returns active agents as `{ id, name }[]`)
 
 **Checkpoint**: Type definitions and mock data ready — US1 and US2 can now begin.
 
@@ -38,10 +38,10 @@
 
 ### Implementation for User Story 1
 
-- [ ] T003 [P] [US1] Create `src/api/members/index.ts` with `getMembers(params: MemberListParams)` calling `GET /api/members`
-- [ ] T004 [US1] Create `src/store/modules/members.ts` Pinia store (`useMemberStore`) with state (`list`, `total`, `loading`, `params`), actions `fetchMembers` and `updateParams` — mirrors `src/store/modules/agents.ts` pattern
-- [ ] T005 [US1] Create `src/views/Members/MemberList.vue` with `ElTable` (columns: 會員 ID、使用者名稱、Email、所屬代理商、狀態、建立時間、操作), keyword search input, agent filter `ElSelect`, `ElPagination`, and loading state — mirrors `src/views/Agents/AgentList.vue` pattern
-- [ ] T006 [US1] Add `/members` route entry to `asyncRouterMap` in `src/router/index.ts` with title `'會員管理'`, icon `'vi-ep:user-filled'`, and child route `list` pointing to `MemberList.vue`
+- [x] T003 [P] [US1] Create `src/api/members/index.ts` with `getMembers(params: MemberListParams)` calling `GET /api/members`
+- [x] T004 [US1] Create `src/store/modules/members.ts` Pinia store (`useMemberStore`) with state (`list`, `total`, `loading`, `params`), actions `fetchMembers` and `updateParams` — mirrors `src/store/modules/agents.ts` pattern
+- [x] T005 [US1] Create `src/views/Members/MemberList.vue` with `ElTable` (columns: 會員 ID、使用者名稱、Email、所屬代理商、狀態、建立時間、操作), keyword search input, agent filter `ElSelect`, `ElPagination`, and loading state — mirrors `src/views/Agents/AgentList.vue` pattern
+- [x] T006 [US1] Add `/members` route entry to `asyncRouterMap` in `src/router/index.ts` with title `'會員管理'`, icon `'vi-ep:user-filled'`, and child route `list` pointing to `MemberList.vue`
 
 **Checkpoint**: US1 complete — `/#/members/list` fully functional with pagination and filtering.
 
@@ -55,10 +55,10 @@
 
 ### Implementation for User Story 2
 
-- [ ] T007 [P] [US2] Add `createMember(data: CreateMemberRequest)` and `getAgentOptions()` functions to `src/api/members/index.ts` (extend existing file: `createMember` calls `POST /api/members`; `getAgentOptions` calls `GET /api/agents/all`)
-- [ ] T008 [US2] Add `createMember(data: CreateMemberRequest)` action and `agentOptions: AgentOption[]` + `agentOptionsLoading: boolean` state to `src/store/modules/members.ts`; add `fetchAgentOptions` action that calls `getAgentOptions()` API
-- [ ] T009 [US2] Create `src/views/Members/components/AddMemberDialog.vue` with `ElDialog`, `ElForm` containing username/email/password/agentId fields, `ElSelect` (bound to `agentOptions`, loads on `@open`), validation rules (email format, password ≥ 8 chars, all required), loading button state, and `handleClosed` to reset fields — mirrors `src/views/Agents/components/AddAgentDialog.vue` pattern
-- [ ] T010 [US2] Wire `AddMemberDialog` into `src/views/Members/MemberList.vue`: import component, add `dialogVisible` ref, add「新增會員」button, mount `<AddMemberDialog v-model:visible="dialogVisible" />`
+- [x] T007 [P] [US2] Add `createMember(data: CreateMemberRequest)` and `getAgentOptions()` functions to `src/api/members/index.ts` (extend existing file: `createMember` calls `POST /api/members`; `getAgentOptions` calls `GET /api/agents/all`)
+- [x] T008 [US2] Add `createMember(data: CreateMemberRequest)` action and `agentOptions: AgentOption[]` + `agentOptionsLoading: boolean` state to `src/store/modules/members.ts`; add `fetchAgentOptions` action that calls `getAgentOptions()` API
+- [x] T009 [US2] Create `src/views/Members/components/AddMemberDialog.vue` with `ElDialog`, `ElForm` containing username/email/password/agentId fields, `ElSelect` (bound to `agentOptions`, loads on `@open`), validation rules (email format, password ≥ 8 chars, all required), loading button state, and `handleClosed` to reset fields — mirrors `src/views/Agents/components/AddAgentDialog.vue` pattern
+- [x] T010 [US2] Wire `AddMemberDialog` into `src/views/Members/MemberList.vue`: import component, add `dialogVisible` ref, add「新增會員」button, mount `<AddMemberDialog v-model:visible="dialogVisible" />`
 
 **Checkpoint**: US2 complete — full add-member flow works end-to-end.
 
